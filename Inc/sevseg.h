@@ -31,6 +31,7 @@ __IO uint32_t* AnodeDutyCycles[3];
 
 static const uint16_t CathodePins[8];
 
+void initSevSeg();
 void handleSevSeg();
 
 #endif /* SEVSEG_H_ */

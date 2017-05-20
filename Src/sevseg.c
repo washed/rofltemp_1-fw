@@ -102,9 +102,14 @@ void initSevSeg()
   HAL_GPIO_WritePin(CA_7SEG_G_GPIO_Port, CA_7SEG_G_Pin, GPIO_PIN_RESET );
   HAL_GPIO_WritePin(CA_7SEG_DP_GPIO_Port, CA_7SEG_DP_Pin, GPIO_PIN_RESET );
 
-  setSevSegValue(0);
+  setSevSegValue(123);
 
   HAL_TIM_Base_Start_IT(&htim14);
+
+  HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_1);
+  //HAL_TIM_OnePulse_Start_IT(&htim3, TIM_CHANNEL_1);
 }
 
 static void setSevSegValue(uint16_t value)
@@ -142,9 +147,7 @@ void handleSevSeg()
 {
   static uint32_t current_digit = 0;
 
-  if ( display_update == 1 )
   {
-    display_update = 0;
     //setSevSegValue( averaged_RTD_temp / ( TEMP_INT_FACTOR / 10 ) );
 	WriteSevSegDigitFast(current_digit, sevSegValue[current_digit] );
 	if( ++current_digit >= SEVSEG_DIGITS) current_digit = 0;
@@ -153,26 +156,44 @@ void handleSevSeg()
 
 static void WriteSevSegDigitFast( uint8_t digit, int8_t number )
 {
-	static uint8_t last_digit = 0;
-
-	//*AnodeDutyCycles[last_digit] = 0;
-	//GPIOB->BSRR = 0xFFFF << 16;
-  //HAL_Delay(1);
-	if ( (number >= -1) && ( number < SEVSEG_SYMBOLS) && (digit >= 0) && (digit < SEVSEG_DIGITS) )
+	if ( number == -1 )
+	{
+		  GPIOB->BSRR = (uint32_t)sevSegSymbolArray[0];
+		  *AnodeDutyCycles[digit] = 0;
+	}
+	else if ( (number >= 0) && ( number < SEVSEG_SYMBOLS) && (digit >= 0) && (digit < SEVSEG_DIGITS) )
 	  {
-
-		  //GPIOC->BSRR = (uint32_t)sevSegDigitArray[digit];
 		  GPIOB->BSRR = (uint32_t)sevSegSymbolArray[number + 1];
 		  *AnodeDutyCycles[digit] = 1000;
-
-		  last_digit = digit;
 	  }
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	static uint32_t counter = 0;
+	static uint32_t number = 0;
+
 	if (htim == &htim14)
 	{
-		display_update = 1;
+		if ( counter++ > 10000 )
+		{
+			counter = 0;
+			//setSevSegValue(number++);
+		}
+	}
+
+	if (htim == &htim2)
+	{
+		handleSevSeg();
+	}
+}
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
+{
+	if ( htim == &htim2 )
+	{
+		WriteSevSegDigitFast(0, -1);
+		WriteSevSegDigitFast(1, -1);
+		WriteSevSegDigitFast(2, -1);
 	}
 }

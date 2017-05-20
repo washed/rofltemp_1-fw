@@ -55,6 +55,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "sevseg.h"
+#include "MAX31865.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -106,9 +107,15 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM1_Init();
   MX_TIM14_Init();
+  MX_TIM2_Init();
 
   /* USER CODE BEGIN 2 */
   initSevSeg();
+
+      if ( initMAX31865() != 0 )
+      {
+    	  	  HAL_Delay(1000);
+      }
 
   /* USER CODE END 2 */
 
@@ -116,7 +123,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  handleSevSeg();
+	    handleMAX31865Devices();
+	    //handleSevSeg();
+	    checkMAX31865WDG();
 
   /* USER CODE END WHILE */
 

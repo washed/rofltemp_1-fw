@@ -13,6 +13,7 @@
 volatile uint32_t MAX31865_DEVICES_RTD_DATA[MAX31865_MAX_DEVICES];
 int32_t MAX31865_DEVICES_TEMP[MAX31865_MAX_DEVICES];
 float MAX31865_DEVICES_TEMP_FLOAT[MAX31865_MAX_DEVICES];
+uint8_t MAX31865_FAULT_STATUS[MAX31865_CON_DEVICES];
 
 volatile uint8_t MAX31865_DEVICES_SAMPLE_READY[MAX31865_MAX_DEVICES] =
 	{ 0, 0, 0, 0 };
@@ -46,7 +47,7 @@ void handleMAX31865Devices()
 
 	for ( uint32_t device_num = 0; device_num < MAX31865_CON_DEVICES; device_num++ )
 		{
-			if ( MAX31865_DEVICES_SAMPLE_READY[device_num] || (HAL_GPIO_ReadPin(MAX31865_DEVICES_DR_BANK_PIN[device_num][0], MAX31865_DEVICES_DR_BANK_PIN[device_num][1]) == GPIO_PIN_RESET ) )
+			if ( (MAX31865_FAULT_STATUS[device_num] == 0) && ( MAX31865_DEVICES_SAMPLE_READY[device_num] || (HAL_GPIO_ReadPin(MAX31865_DEVICES_DR_BANK_PIN[device_num][0], MAX31865_DEVICES_DR_BANK_PIN[device_num][1]) == GPIO_PIN_RESET )) )
 				{
 					MAX31865_DEVICES_TIME_SINCE_LAST_READ[device_num] = 0;
 					getRTDData_MAX31865( device_num );
@@ -85,9 +86,23 @@ void handleMAX31865Devices()
 		}
 }
 
-void initMAX31865()
+uint8_t initMAX31865()
 {
-	uint8_t status_reg[MAX31865_CON_DEVICES], fault_status[MAX31865_CON_DEVICES], fault_detect_running;
+	uint8_t status_reg[MAX31865_CON_DEVICES], fault_detect_running, retVal;
+	retVal = 0;
+
+	  // Power-off RTD-Frontend
+	    HAL_GPIO_WritePin( SPI1_PWR_GPIO_Port, SPI1_PWR_Pin, GPIO_PIN_RESET );
+
+	    HAL_Delay(100);
+
+	      // Send a dummy byte on SPI3 to make sure the idle clock is correct
+	      initSPIIdleClock();
+
+	      // Power-on RTD-Frontend
+	      HAL_GPIO_WritePin( SPI1_PWR_GPIO_Port, SPI1_PWR_Pin, GPIO_PIN_SET );
+
+	      HAL_Delay(100);
 
 	setCfgReg_MAX31865( 0, (MAX_31865_CFG_VBIAS_ON | MAX_31865_CFG_FAULT_AUTODELAY | MAX_31865_CFG_50HZ_ON) );
 	//setCfgReg_MAX31865( 1, (MAX_31865_CFG_VBIAS_ON | MAX_31865_CFG_FAULT_AUTODELAY | MAX_31865_CFG_50HZ_ON) );
@@ -101,7 +116,7 @@ void initMAX31865()
 					fault_detect_running |= (status_reg[device_num] & MAX_31865_CFG_FAULT_AUTODELAY);
 					if ( ! (status_reg[device_num] & MAX_31865_CFG_FAULT_AUTODELAY) )
 						{
-							fault_status[device_num] = getFaultStatus_MAX31865( device_num );
+						MAX31865_FAULT_STATUS[device_num] = getFaultStatus_MAX31865( device_num );
 						}
 				}
 		}
@@ -109,13 +124,19 @@ void initMAX31865()
 
 	for ( uint8_t device_num = 0; device_num < MAX31865_CON_DEVICES; device_num++ )
 		{
-			if ( fault_status[device_num] == 0 )
+			if ( MAX31865_FAULT_STATUS[device_num] == 0 )
+			{
 				setCfgReg_MAX31865(
 						device_num,
 						(MAX_31865_CFG_VBIAS_ON | MAX_31865_CFG_CONVAUTO_ON | MAX_31865_CFG_FAULT_NONE | MAX_31865_CFG_50HZ_ON) );
+			}
 			else
+			{
 				setCfgReg_MAX31865( device_num, 0 );
+				retVal = 1;
+			}
 		}
+	return retVal;
 }
 
 void checkMAX31865WDG()

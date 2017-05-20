@@ -107,7 +107,7 @@ extern "C"
 //const uint32_t MAX31865_DEVICES_DR_BANK_PIN[MAX31865_MAX_DEVICES][2];
 
 	void handleMAX31865Devices();
-	void initMAX31865();
+	uint8_t initMAX31865();
 	void checkMAX31865WDG();
 	void getRTDData_MAX31865( uint32_t device_num );
 	void setCfgReg_MAX31865( uint32_t device_num, uint8_t config_flags );

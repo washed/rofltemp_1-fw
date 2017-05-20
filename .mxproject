@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Projects/Sonstiges/rofltemp_1-fw/Inc
+HeaderPath=C:/Projects/ROFLtemp/STM32/ROFLtemp_1/Inc
 HeaderFiles=gpio.h;spi.h;usb_device.h;usbd_conf.h;usbd_desc.h;usbd_cdc_if.h;stm32f0xx_it.h;stm32f0xx_hal_conf.h;main.h;tim.h;
-SourcePath=C:/Projects/Sonstiges/rofltemp_1-fw/Src
+SourcePath=C:/Projects/ROFLtemp/STM32/ROFLtemp_1/Src
 SourceFiles=gpio.h;spi.h;usb_device.h;usbd_conf.h;usbd_desc.h;usbd_cdc_if.h;stm32f0xx_it.h;stm32f0xx_hal_conf.h;main.h;gpio.c;spi.c;usb_device.c;usbd_conf.c;usbd_desc.c;usbd_cdc_if.c;stm32f0xx_it.c;stm32f0xx_hal_msp.c;main.c;tim.h;tim.c;
 
 [PreviousLibFiles]
