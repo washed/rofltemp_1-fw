@@ -9,7 +9,7 @@
 #define MAX31865_H_
 #ifdef __cplusplus
 extern "C"
-{
+  {
 #endif
 
 #include <spi.h>
@@ -98,25 +98,37 @@ extern "C"
 #define MAX_31865_CFG_FAULT_FIN_MAN			(3 << MAX_31865_CFG_FAULT_SHIFT)
 #define MAX_31865_CFG_50HZ_ON				(1 << MAX_31865_CFG_50HZ_ON_SHIFT)
 
-	extern volatile uint32_t MAX31865_DEVICES_RTD_DATA[MAX31865_MAX_DEVICES];
-	extern int32_t MAX31865_DEVICES_TEMP[MAX31865_MAX_DEVICES];
-	extern volatile uint32_t MAX31865_DEVICES_TIME_SINCE_LAST_READ[MAX31865_MAX_DEVICES];
-	extern uint32_t averaged_RTD_temp;
+extern volatile uint32_t MAX31865_DEVICES_RTD_DATA[MAX31865_MAX_DEVICES];
+extern volatile uint8_t MAX31865_DEVICES_SAMPLE_READY[MAX31865_MAX_DEVICES];
+extern int32_t MAX31865_DEVICES_TEMP[MAX31865_MAX_DEVICES];
+extern volatile uint32_t MAX31865_DEVICES_TIME_SINCE_LAST_READ[MAX31865_MAX_DEVICES];
+extern uint32_t averaged_RTD_temp;
 
 //const uint32_t MAX31865_DEVICES_CS_BANK_PIN[MAX31865_MAX_DEVICES][2];
 //const uint32_t MAX31865_DEVICES_DR_BANK_PIN[MAX31865_MAX_DEVICES][2];
 
-	void handleMAX31865Devices();
-	uint8_t initMAX31865();
-	void checkMAX31865WDG();
-	void getRTDData_MAX31865( uint32_t device_num );
-	void setCfgReg_MAX31865( uint32_t device_num, uint8_t config_flags );
-	uint8_t getFaultStatus_MAX31865( uint32_t device_num );
-	void setReg_MAX31865( uint32_t device_num, uint8_t reg, uint8_t* p_data, uint8_t len );
-	void getReg_MAX31865( uint32_t device_num, uint8_t reg, uint8_t* p_data, uint8_t len );
-	void initSPIIdleClock();
-	void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin );
-	void tickMAX31865WDGTimer( uint32_t ticks );
+void
+handleMAX31865Devices ();
+uint8_t
+initMAX31865 ();
+void
+checkMAX31865WDG ();
+void
+getRTDData_MAX31865 (uint32_t device_num);
+void
+setCfgReg_MAX31865 (uint32_t device_num, uint8_t config_flags);
+uint8_t
+getFaultStatus_MAX31865 (uint32_t device_num);
+void
+setReg_MAX31865 (uint32_t device_num, uint8_t reg, uint8_t* p_data, uint8_t len);
+void
+getReg_MAX31865 (uint32_t device_num, uint8_t reg, uint8_t* p_data, uint8_t len);
+void
+initSPIIdleClock ();
+void
+HAL_GPIO_EXTI_Callback (uint16_t GPIO_Pin);
+void
+tickMAX31865WDGTimer (uint32_t ticks);
 
 #ifdef __cplusplus
 }

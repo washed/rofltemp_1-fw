@@ -10,190 +10,153 @@
 #include "sevseg.h"
 #include "MAX31865.h"
 
-static volatile uint8_t display_update = 0;
+const uint32_t AnodePins[3] =
+  {
+  AN_7SEG_0_Pin,
+  AN_7SEG_1_Pin,
+  AN_7SEG_2_Pin };
 
-/*
-const uint32_t sevSegSymbolArray[SEVSEG_SYMBOLS] = {
-		( ~SEVSEG_GPIO_CAT_MASK | (SEVSEG_GPIO_CAT_MASK >> 16) ),
-		( ~(SEVSEG_TOP | SEVSEG_BOT | SEVSEG_TOP_LEFT | SEVSEG_TOP_RIGHT | SEVSEG_BOT_LEFT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP_RIGHT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_TOP_RIGHT | SEVSEG_MID | SEVSEG_BOT_LEFT | SEVSEG_BOT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_TOP_RIGHT | SEVSEG_MID | SEVSEG_BOT_RIGHT | SEVSEG_BOT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP_LEFT | SEVSEG_MID | SEVSEG_TOP_RIGHT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_TOP_LEFT | SEVSEG_MID | SEVSEG_BOT_RIGHT | SEVSEG_BOT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_TOP_LEFT | SEVSEG_MID | SEVSEG_BOT_LEFT | SEVSEG_BOT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_TOP_RIGHT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_MID | SEVSEG_BOT | SEVSEG_TOP_LEFT | SEVSEG_TOP_RIGHT | SEVSEG_BOT_LEFT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK ),
-		( ~(SEVSEG_TOP | SEVSEG_MID | SEVSEG_BOT | SEVSEG_TOP_LEFT | SEVSEG_TOP_RIGHT | SEVSEG_BOT_RIGHT) | SEVSEG_GPIO_CAT_MASK )
-};
-*/
-
-const uint32_t CathodePorts[8] = {
-		  CA_7SEG_A_GPIO_Port, // 0
-		  CA_7SEG_B_GPIO_Port, // 1
-		  CA_7SEG_C_GPIO_Port, // 2
-		  CA_7SEG_D_GPIO_Port, // 3
-		  CA_7SEG_E_GPIO_Port, // 4
-		  CA_7SEG_F_GPIO_Port, // 5
-		  CA_7SEG_G_GPIO_Port, // 6
-		  CA_7SEG_DP_GPIO_Port, // 7
-};
-
-static const uint16_t CathodePins[8] = {
-		  CA_7SEG_A_Pin, // 0
-		  CA_7SEG_B_Pin, // 1
-		  CA_7SEG_C_Pin, // 2
-		 CA_7SEG_D_Pin, // 3
-		   CA_7SEG_E_Pin, // 4
-		  CA_7SEG_F_Pin, // 5
-		  CA_7SEG_G_Pin, // 6
-		  CA_7SEG_DP_Pin, // 7
-};
+static const uint16_t CathodePins[8] =
+  {
+  CA_7SEG_A_Pin, // 0
+      CA_7SEG_B_Pin, // 1
+      CA_7SEG_C_Pin, // 2
+      CA_7SEG_D_Pin, // 3
+      CA_7SEG_E_Pin, // 4
+      CA_7SEG_F_Pin, // 5
+      CA_7SEG_G_Pin, // 6
+      CA_7SEG_DP_Pin, // 7
+    };
 
 uint32_t sevSegSymbolArray[SEVSEG_SYMBOLS];
 
-const uint32_t sevSegDigitArray[SEVSEG_DIGITS] = {
-		( SEVSEG_DIG_0 | SEVSEG_GPIO_AN_MASK ),
-		( SEVSEG_DIG_1 | SEVSEG_GPIO_AN_MASK ),
-		( SEVSEG_DIG_2 | SEVSEG_GPIO_AN_MASK )
-};
+int8_t sevSegValue[SEVSEG_DIGITS] =
+  { -1, -1, -1 };
 
-int8_t sevSegValue[SEVSEG_DIGITS] = {
-		1,
-		2,
-		3,
-};
+int32_t sevSegDPPosition = -1;
 
-static void setSevSegValue(uint16_t value);
-static void WriteSevSegDigitFast( uint8_t digit, int8_t number );
+static void
+WriteSevSegDigitFast (uint8_t digit, int8_t number);
 
-void initSevSeg()
+void
+initSevSeg ()
 {
-	sevSegSymbolArray[0] = 0xFFFF << 16;
-	sevSegSymbolArray[1] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[2] = ( CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[3] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT] );
-	sevSegSymbolArray[4] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT_RIGHT] | CathodePins[SEVSEG_BOT] );
-	sevSegSymbolArray[5] = ( CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[6] = ( CathodePins[SEVSEG_TOP] |  CathodePins[SEVSEG_TOP_LEFT] |  CathodePins[SEVSEG_MID] |  CathodePins[SEVSEG_BOT_RIGHT] |  CathodePins[SEVSEG_BOT] );
-	sevSegSymbolArray[7] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[8] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[9] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT_RIGHT] );
-	sevSegSymbolArray[10] = ( CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT] );
+  sevSegSymbolArray[0] = SEVSEG_GPIO_CAT_MASK << 16;
+  sevSegSymbolArray[1] = (CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_BOT]
+      | CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_TOP_RIGHT]
+      | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[2] = (CathodePins[SEVSEG_TOP_RIGHT]
+      | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[3] = (CathodePins[SEVSEG_TOP]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_MID]
+      | CathodePins[SEVSEG_BOT_LEFT] | CathodePins[SEVSEG_BOT]);
+  sevSegSymbolArray[4] = (CathodePins[SEVSEG_TOP]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_MID]
+      | CathodePins[SEVSEG_BOT_RIGHT] | CathodePins[SEVSEG_BOT]);
+  sevSegSymbolArray[5] = (CathodePins[SEVSEG_TOP_LEFT] | CathodePins[SEVSEG_MID]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[6] = (CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_LEFT]
+      | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT_RIGHT]
+      | CathodePins[SEVSEG_BOT]);
+  sevSegSymbolArray[7] = (CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_TOP_LEFT]
+      | CathodePins[SEVSEG_MID] | CathodePins[SEVSEG_BOT_LEFT]
+      | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[8] = (CathodePins[SEVSEG_TOP]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[9] = (CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_MID]
+      | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_TOP_LEFT]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_LEFT]
+      | CathodePins[SEVSEG_BOT_RIGHT]);
+  sevSegSymbolArray[10] = (CathodePins[SEVSEG_TOP] | CathodePins[SEVSEG_MID]
+      | CathodePins[SEVSEG_BOT] | CathodePins[SEVSEG_TOP_LEFT]
+      | CathodePins[SEVSEG_TOP_RIGHT] | CathodePins[SEVSEG_BOT_RIGHT]);
 
-  AnodeDutyCycles[0] = &(htim1.Instance->CCR1);
-  AnodeDutyCycles[1] = &(htim1.Instance->CCR2);
-  AnodeDutyCycles[2] = &(htim1.Instance->CCR3);
+  // Anodes off
+  GPIOA->BSRR = SEVSEG_GPIO_AN_MASK;
 
-  *AnodeDutyCycles[0] = 0;
-  *AnodeDutyCycles[1] = 0;
-  *AnodeDutyCycles[2] = 0;
+  // Cathodes off
+  GPIOB->BSRR = sevSegSymbolArray[0];
 
-  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_1 );
-  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_2 );
-  HAL_TIM_PWM_Start( &htim1, TIM_CHANNEL_3 );
+  // Display value 0
+  setSevSegValue (0);
 
-  HAL_GPIO_WritePin(CA_7SEG_A_GPIO_Port, CA_7SEG_A_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_B_GPIO_Port, CA_7SEG_B_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_C_GPIO_Port, CA_7SEG_C_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_D_GPIO_Port, CA_7SEG_D_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_E_GPIO_Port, CA_7SEG_E_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_F_GPIO_Port, CA_7SEG_F_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_G_GPIO_Port, CA_7SEG_G_Pin, GPIO_PIN_RESET );
-  HAL_GPIO_WritePin(CA_7SEG_DP_GPIO_Port, CA_7SEG_DP_Pin, GPIO_PIN_RESET );
+  // Set brightness/duty cycle (0-1000)
+  htim2.Instance->CCR1 = 500;
 
-  setSevSegValue(123);
+  // Set fixed decimal point
+  sevSegDPPosition = 1;
 
-  HAL_TIM_Base_Start_IT(&htim14);
+  HAL_TIM_Base_Start_IT (&htim14);
 
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_PWM_Start_IT(&htim2, TIM_CHANNEL_1);
-  //HAL_TIM_PWM_Start_IT(&htim3, TIM_CHANNEL_1);
-  //HAL_TIM_OnePulse_Start_IT(&htim3, TIM_CHANNEL_1);
+  // Start Timer 2 ("digit-clock")
+  HAL_TIM_Base_Start_IT (&htim2);
+  HAL_TIM_PWM_Start_IT (&htim2, TIM_CHANNEL_1);
 }
 
-static void setSevSegValue(uint16_t value)
-{
-if ( (value >= 0) && (value < 1000) )
-{
-	if ( value >= 100 )
-	{
-		sevSegValue[0] = value / 100;
-		value = value % 100;
-	}
-	else
-	{
-		sevSegValue[0] = -1;
-		value = value % 100;
-	}
-
-	if ( value >= 10 )
-	{
-		sevSegValue[1] = value / 10;
-		value = value % 10;
-	}
-	else
-	{
-		sevSegValue[1] = 0;
-		value = value % 10;
-	}
-
-	sevSegValue[2] = value;
-
-}
-}
-
-void handleSevSeg()
+void
+handleSevSeg (uint8_t set)
 {
   static uint32_t current_digit = 0;
-
-  {
-    //setSevSegValue( averaged_RTD_temp / ( TEMP_INT_FACTOR / 10 ) );
-	WriteSevSegDigitFast(current_digit, sevSegValue[current_digit] );
-	if( ++current_digit >= SEVSEG_DIGITS) current_digit = 0;
-  }
+  if (set == 1)
+    {
+      WriteSevSegDigitFast (current_digit, sevSegValue[current_digit]);
+      if (++current_digit >= SEVSEG_DIGITS)
+	current_digit = 0;
+    }
+  else
+    {
+      WriteSevSegDigitFast (current_digit, -1);
+    }
 }
 
-static void WriteSevSegDigitFast( uint8_t digit, int8_t number )
+void
+setSevSegValue (uint16_t value)
 {
-	if ( number == -1 )
+  if ((value >= 0) && (value < 1000))
+    {
+      if (value >= 100)
 	{
-		  GPIOB->BSRR = (uint32_t)sevSegSymbolArray[0];
-		  *AnodeDutyCycles[digit] = 0;
+	  sevSegValue[0] = value / 100;
+	  value = value % 100;
 	}
-	else if ( (number >= 0) && ( number < SEVSEG_SYMBOLS) && (digit >= 0) && (digit < SEVSEG_DIGITS) )
-	  {
-		  GPIOB->BSRR = (uint32_t)sevSegSymbolArray[number + 1];
-		  *AnodeDutyCycles[digit] = 1000;
-	  }
+      else
+	{
+	  sevSegValue[0] = -1;
+	  value = value % 100;
+	}
+
+      if (value >= 10)
+	{
+	  sevSegValue[1] = value / 10;
+	  value = value % 10;
+	}
+      else
+	{
+	  sevSegValue[1] = 0;
+	  value = value % 10;
+	}
+
+      sevSegValue[2] = value;
+
+    }
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+static void
+WriteSevSegDigitFast (uint8_t digit, int8_t number)
 {
-	static uint32_t counter = 0;
-	static uint32_t number = 0;
+  uint32_t dp = 0;
+  ;
 
-	if (htim == &htim14)
-	{
-		if ( counter++ > 10000 )
-		{
-			counter = 0;
-			//setSevSegValue(number++);
-		}
-	}
+  if (sevSegDPPosition == -1)
+    dp = 0;
+  else if (digit == sevSegDPPosition)
+    dp = CathodePins[SEVSEG_DP];
 
-	if (htim == &htim2)
-	{
-		handleSevSeg();
-	}
-}
-
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
-{
-	if ( htim == &htim2 )
-	{
-		WriteSevSegDigitFast(0, -1);
-		WriteSevSegDigitFast(1, -1);
-		WriteSevSegDigitFast(2, -1);
-	}
+  if ((number >= -1) && (number < SEVSEG_SYMBOLS) && (digit >= 0)
+      && (digit < SEVSEG_DIGITS))
+    {
+      GPIOB->BSRR = sevSegSymbolArray[number + 1] | dp;
+      GPIOA->BSRR = (SEVSEG_GPIO_AN_MASK ^ AnodePins[digit])
+	  | (AnodePins[digit] << 16);
+    }
 }
