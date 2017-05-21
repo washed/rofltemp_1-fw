@@ -110,6 +110,28 @@ handleSevSeg (uint8_t set)
 }
 
 void
+setSevSegDP (int32_t position)
+{
+  sevSegDPPosition = position;
+}
+
+void
+toggleSevSegDP (int32_t position)
+{
+  static uint8_t toggle = 0;
+  if (toggle == 0)
+    {
+      sevSegDPPosition = -1;
+      toggle = 1;
+    }
+  else
+    {
+      sevSegDPPosition = position;
+      toggle = 0;
+    }
+}
+
+void
 setSevSegValue (uint16_t value)
 {
   if ((value >= 0) && (value < 1000))

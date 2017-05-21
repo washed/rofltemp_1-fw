@@ -15,6 +15,8 @@ int32_t MAX31865_DEVICES_TEMP[MAX31865_MAX_DEVICES];
 float MAX31865_DEVICES_TEMP_FLOAT[MAX31865_MAX_DEVICES];
 uint8_t MAX31865_FAULT_STATUS[MAX31865_CON_DEVICES];
 
+uint8_t tx_buffer[64];
+
 volatile uint8_t MAX31865_DEVICES_SAMPLE_READY[MAX31865_MAX_DEVICES] =
   { 0, 0, 0, 0 };
 volatile uint32_t MAX31865_DEVICES_TIME_SINCE_LAST_READ[MAX31865_MAX_DEVICES] =
@@ -85,6 +87,7 @@ handleMAX31865Devices ()
 		  MAX31865_DEVICES_TEMP[device_num];
 	      if (++current_buffer_index >= MAX31865_MAX_BUFFERSIZE)
 		{
+		  toggleSevSegDP (1);
 		  buffer_sum = 0;
 		  for (uint32_t i = 0; i < MAX31865_MAX_BUFFERSIZE; i++)
 		    buffer_sum += MAX31865_DEVICES_TEMP_BUFFER[i];
@@ -92,6 +95,10 @@ handleMAX31865Devices ()
 		  averaged_RTD_temp = floor (
 		      ((float) buffer_sum / (float) MAX31865_MAX_BUFFERSIZE)
 			  + 0.5F);
+		  itoa (averaged_RTD_temp, tx_buffer, 10);
+		  strncat (tx_buffer, "\r\n", 2);
+		  CDC_Transmit_FS (tx_buffer, strlen (tx_buffer));
+
 		  current_buffer_index = 0;
 		}
 	      //addTemperatureSample( &temp_control0, MAX31865_DEVICES_TEMP[device_num] );

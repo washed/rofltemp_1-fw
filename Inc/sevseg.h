@@ -36,6 +36,8 @@ static const uint16_t CathodePins[8];
 void initSevSeg();
 void handleSevSeg(uint8_t set);
 void
+setSevSegDP (int32_t position);
+void
 setSevSegValue (uint16_t value);
 
 #endif /* SEVSEG_H_ */
