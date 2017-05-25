@@ -28,7 +28,6 @@ void HAL_TIM_PWM_PulseFinishedCallback( TIM_HandleTypeDef* htim )
   }
 }
 
-// DR Pin callback
 void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 {
   if ( GPIO_Pin == MAX31865_0_DR_PIN )

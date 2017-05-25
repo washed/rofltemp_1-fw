@@ -5,10 +5,12 @@
  *      Author: washed
  */
 
-#include "sevseg.h"
-#include "MAX31865.h"
+#include "math.h"
 #include "stm32f0xx_hal.h"
 #include "tim.h"
+
+#include "MAX31865.h"
+#include "sevseg.h"
 
 const uint32_t AnodePins[ 3 ] = { AN_7SEG_0_Pin, AN_7SEG_1_Pin, AN_7SEG_2_Pin };
 
@@ -67,17 +69,20 @@ void initSevSeg()
   // Display value 0
   setSevSegValue( 0 );
 
-  // Set brightness/duty cycle (0-1000)
-  htim2.Instance->CCR1 = 500;
+  // Set brightness
+  setBrightness( DEFAULT_BRIGHTNESS );
 
   // Set fixed decimal point
   sevSegDPPosition = 1;
 
-  HAL_TIM_Base_Start_IT( &htim14 );
-
   // Start Timer 2 ("digit-clock")
   HAL_TIM_Base_Start_IT( &htim2 );
   HAL_TIM_PWM_Start_IT( &htim2, TIM_CHANNEL_1 );
+}
+
+void setBrightness( uint8_t brightness )
+{
+  htim2.Instance->CCR1 = floor( ( (float)brightness * (float)brightness ) / 65.025F );
 }
 
 void handleSevSeg( uint8_t set )

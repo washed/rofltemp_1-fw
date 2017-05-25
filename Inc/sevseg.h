@@ -8,6 +8,8 @@
 #ifndef SEVSEG_H_
 #define SEVSEG_H_
 
+#define DEFAULT_BRIGHTNESS 100
+
 #define SEVSEG_SYMBOLS 11
 #define SEVSEG_DIGITS 3
 
@@ -39,5 +41,6 @@ void initSevSeg();
 void handleSevSeg( uint8_t set );
 void setSevSegDP( int32_t position );
 void setSevSegValue( uint16_t value );
+void setBrightness( uint8_t brightness );
 
 #endif /* SEVSEG_H_ */
