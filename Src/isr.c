@@ -11,31 +11,28 @@
 #include "MAX31865.h"
 #include "sevseg.h"
 
-void
-HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef* htim )
 {
-  if (htim == &htim2)
-    {
-      setSevSegValue (averaged_RTD_temp / ( TEMP_INT_FACTOR / 10));
-      handleSevSeg (1);
-    }
+  if ( htim == &htim2 )
+  {
+    setSevSegValue( averaged_RTD_temp / ( TEMP_INT_FACTOR / 10 ) );
+    handleSevSeg( 1 );
+  }
 }
 
-void
-HAL_TIM_PWM_PulseFinishedCallback (TIM_HandleTypeDef *htim)
+void HAL_TIM_PWM_PulseFinishedCallback( TIM_HandleTypeDef* htim )
 {
-  if (htim == &htim2)
-    {
-      handleSevSeg (0);
-    }
+  if ( htim == &htim2 )
+  {
+    handleSevSeg( 0 );
+  }
 }
 
 // DR Pin callback
-void
-HAL_GPIO_EXTI_Callback (uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 {
-  if (GPIO_Pin == MAX31865_0_DR_PIN)
-    {
-      MAX31865_DEVICES_SAMPLE_READY[0] = 1;
-    }
+  if ( GPIO_Pin == MAX31865_0_DR_PIN )
+  {
+    MAX31865_DEVICES_SAMPLE_READY[ 0 ] = 1;
+  }
 }
