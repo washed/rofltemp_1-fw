@@ -145,8 +145,9 @@ typedef struct
 #if defined( STM32F031x6 ) || defined( STM32F042x6 ) || defined( STM32F051x8 ) || defined( STM32F071xB ) || \
     defined( STM32F072xB ) || defined( STM32F091xC )
 
-#define PWR_EXTI_LINE_PVD ( (uint32_t)EXTI_IMR_MR16 ) /*!< External interrupt line 16 Connected to the PVD EXTI Line \
-                                                         */
+#define PWR_EXTI_LINE_PVD                                                                                      \
+  ( (uint32_t)EXTI_IMR_MR16 ) /*!< External interrupt line 16 Connected to the PVD EXTI Line \ \ \ \ \ \ \ \ \ \
+                                 */
 
 #endif /* defined (STM32F031x6) || defined (STM32F042x6) || defined (STM32F051x8) || */
        /* defined (STM32F071xB) || defined (STM32F072xB) || */
@@ -158,8 +159,8 @@ typedef struct
 #define PWR_EXTI_LINE_VDDIO2 \
   ( (uint32_t)EXTI_IMR_MR31 ) /*!< External interrupt line 31 Connected to the Vddio2 Monitor EXTI Line */
 
-#endif /* defined (STM32F042x6) || defined (STM32F048xx) ||\                           \
-          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \
+#endif /* defined (STM32F042x6) || defined (STM32F048xx) ||\                           \ \ \ \ \ \ \ \ \ \
+          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \ \ \ \ \ \ \ \ \ \
           defined (STM32F091xC) || defined (STM32F098xx) ||*/
 /**
   * @}
@@ -194,10 +195,11 @@ typedef struct
 #define PWR_PVD_MODE_IT_FALLING ( 0x00010002U ) /*!< External Interrupt Mode with Falling edge trigger detection */
 #define PWR_PVD_MODE_IT_RISING_FALLING \
   ( 0x00010003U ) /*!< External Interrupt Mode with Rising/Falling edge trigger detection */
-#define PWR_PVD_MODE_EVENT_RISING ( 0x00020001U )         /*!< Event Mode with Rising edge trigger detection */
-#define PWR_PVD_MODE_EVENT_FALLING ( 0x00020002U )        /*!< Event Mode with Falling edge trigger detection */
-#define PWR_PVD_MODE_EVENT_RISING_FALLING ( 0x00020003U ) /*!< Event Mode with Rising/Falling edge trigger detection \
-                                                             */
+#define PWR_PVD_MODE_EVENT_RISING ( 0x00020001U )  /*!< Event Mode with Rising edge trigger detection */
+#define PWR_PVD_MODE_EVENT_FALLING ( 0x00020002U ) /*!< Event Mode with Falling edge trigger detection */
+#define PWR_PVD_MODE_EVENT_RISING_FALLING                                                      \
+  ( 0x00020003U ) /*!< Event Mode with Rising/Falling edge trigger detection \ \ \ \ \ \ \ \ \ \
+                     */
 
 #define IS_PWR_PVD_MODE( MODE )                                                                        \
   ( ( ( MODE ) == PWR_PVD_MODE_IT_RISING ) || ( ( MODE ) == PWR_PVD_MODE_IT_FALLING ) ||               \
@@ -381,8 +383,8 @@ typedef struct
   */
 #define __HAL_PWR_VDDIO2_EXTI_GENERATE_SWIT() ( EXTI->SWIER |= ( PWR_EXTI_LINE_VDDIO2 ) )
 
-#endif /* defined (STM32F042x6) || defined (STM32F048xx) ||\                           \
-          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \
+#endif /* defined (STM32F042x6) || defined (STM32F048xx) ||\                           \ \ \ \ \ \ \ \ \ \
+          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \ \ \ \ \ \ \ \ \ \
           defined (STM32F091xC) || defined (STM32F098xx) */
 
 /**
@@ -411,8 +413,8 @@ void HAL_PWR_PVDCallback( void );
     defined( STM32F078xx ) || defined( STM32F091xC ) || defined( STM32F098xx )
 void HAL_PWREx_Vddio2Monitor_IRQHandler( void );
 void HAL_PWREx_Vddio2MonitorCallback( void );
-#endif /* defined (STM32F042x6) || defined (STM32F048xx) || \                          \
-          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \
+#endif /* defined (STM32F042x6) || defined (STM32F048xx) || \                          \ \ \ \ \ \ \ \ \ \
+          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \ \ \ \ \ \ \ \ \ \
           defined (STM32F091xC) || defined (STM32F098xx) */
 
 /* Peripheral Control functions  **********************************************/
@@ -429,8 +431,8 @@ void HAL_PWR_DisablePVD( void );
     defined( STM32F078xx ) || defined( STM32F091xC ) || defined( STM32F098xx )
 void HAL_PWREx_EnableVddio2Monitor( void );
 void HAL_PWREx_DisableVddio2Monitor( void );
-#endif /* defined (STM32F042x6) || defined (STM32F048xx) || \                          \
-          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \
+#endif /* defined (STM32F042x6) || defined (STM32F048xx) || \                          \ \ \ \ \ \ \ \ \ \
+          defined (STM32F071xB) || defined (STM32F072xB) || defined (STM32F078xx) || \ \ \ \ \ \ \ \ \ \ \
           defined (STM32F091xC) || defined (STM32F098xx) */
 
 /**

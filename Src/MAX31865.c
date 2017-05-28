@@ -34,7 +34,7 @@ const uint32_t MAX31865_DEVICES_DR_BANK_PIN[ MAX31865_MAX_DEVICES ][ 2 ] = { { M
 
 static uint32_t MAX31865_DEVICES_TEMP_BUFFER[ MAX31865_MAX_BUFFERSIZE ];
 static uint8_t current_buffer_index = 0;
-uint32_t averaged_RTD_temp = 0;
+int32_t averaged_RTD_temp = 0;
 
 static inline void assertCS( uint32_t device_num );
 static inline void deassertCS( uint32_t device_num );
@@ -42,6 +42,9 @@ static inline void deassertCS( uint32_t device_num );
 void handleMAX31865Devices()
 {
   float r, buffer_sum;
+  static int64_t total = 0;
+  static int32_t average = 0;
+  static uint32_t N = 0;
 
   for ( uint32_t device_num = 0; device_num < MAX31865_CON_DEVICES; device_num++ )
   {
@@ -71,21 +74,28 @@ void handleMAX31865Devices()
       switch ( device_num )
       {
         case 0:
-          MAX31865_DEVICES_TEMP_BUFFER[ current_buffer_index ] = MAX31865_DEVICES_TEMP[ device_num ];
-          if ( ++current_buffer_index >= MAX31865_MAX_BUFFERSIZE )
-          {
-            toggleSevSegDP( 1 );
-            buffer_sum = 0;
-            for ( uint32_t i = 0; i < MAX31865_MAX_BUFFERSIZE; i++ ) buffer_sum += MAX31865_DEVICES_TEMP_BUFFER[ i ];
+          /*
+    MAX31865_DEVICES_TEMP_BUFFER[ current_buffer_index ] = MAX31865_DEVICES_TEMP[ device_num ];
+    if ( ++current_buffer_index >= MAX31865_MAX_BUFFERSIZE )
+    {
+      toggleSevSegDP( 1 );
+      buffer_sum = 0;
+      for ( uint32_t i = 0; i < MAX31865_MAX_BUFFERSIZE; i++ ) buffer_sum += MAX31865_DEVICES_TEMP_BUFFER[ i ];
 
-            averaged_RTD_temp = floor( ( (float)buffer_sum / (float)MAX31865_MAX_BUFFERSIZE ) + 0.5F );
-            itoa( averaged_RTD_temp, tx_buffer, 10 );
-            strncat( tx_buffer, "\r\n", 2 );
-            CDC_Transmit_FS( tx_buffer, strlen( tx_buffer ) );
+      averaged_RTD_temp = floor( ( (float)buffer_sum / (float)MAX31865_MAX_BUFFERSIZE ) + 0.5F );
 
-            current_buffer_index = 0;
-          }
-          // addTemperatureSample( &temp_control0, MAX31865_DEVICES_TEMP[device_num] );
+      current_buffer_index = 0;
+    }
+    // addTemperatureSample( &temp_control0, MAX31865_DEVICES_TEMP[device_num] );
+     */
+
+          total += MAX31865_DEVICES_TEMP[ device_num ];
+          if ( N >= MAX31865_MAX_BUFFERSIZE )
+            total -= averaged_RTD_temp;
+          else
+            N++;
+
+          averaged_RTD_temp = lrintf( (float)total / (float)N );
           break;
       }
     }

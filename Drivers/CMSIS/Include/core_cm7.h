@@ -769,8 +769,9 @@ typedef struct
 #define SCB_CCSIDR_NUMSETS_Msk ( 0x7FFFUL << SCB_CCSIDR_NUMSETS_Pos ) /*!< SCB CCSIDR: NumSets Mask */
 
 #define SCB_CCSIDR_ASSOCIATIVITY_Pos 3U /*!< SCB CCSIDR: Associativity Position */
-#define SCB_CCSIDR_ASSOCIATIVITY_Msk ( 0x3FFUL << SCB_CCSIDR_ASSOCIATIVITY_Pos ) /*!< SCB CCSIDR: Associativity Mask \
-                                                                                    */
+#define SCB_CCSIDR_ASSOCIATIVITY_Msk                                                                \
+  ( 0x3FFUL << SCB_CCSIDR_ASSOCIATIVITY_Pos ) /*!< SCB CCSIDR: Associativity Mask \ \ \ \ \ \ \ \ \ \
+                                                 */
 
 #define SCB_CCSIDR_LINESIZE_Pos 0U                                     /*!< SCB CCSIDR: LineSize Position */
 #define SCB_CCSIDR_LINESIZE_Msk ( 7UL /*<< SCB_CCSIDR_LINESIZE_Pos*/ ) /*!< SCB CCSIDR: LineSize Mask */
@@ -1517,8 +1518,9 @@ typedef struct
 #define FPU_FPCCR_USER_Msk ( 1UL << FPU_FPCCR_USER_Pos ) /*!< FPCCR: privilege level bit Mask */
 
 #define FPU_FPCCR_LSPACT_Pos 0U /*!< FPCCR: Lazy state preservation active bit Position */
-#define FPU_FPCCR_LSPACT_Msk ( 1UL /*<< FPU_FPCCR_LSPACT_Pos*/ ) /*!< FPCCR: Lazy state preservation active bit Mask \
-                                                                    */
+#define FPU_FPCCR_LSPACT_Msk                                                                                \
+  ( 1UL /*<< FPU_FPCCR_LSPACT_Pos*/ ) /*!< FPCCR: Lazy state preservation active bit Mask \ \ \ \ \ \ \ \ \ \
+                                         */
 
 /* Floating-Point Context Address Register Definitions */
 #define FPU_FPCAR_ADDRESS_Pos 3U                                        /*!< FPCAR: ADDRESS bit Position */

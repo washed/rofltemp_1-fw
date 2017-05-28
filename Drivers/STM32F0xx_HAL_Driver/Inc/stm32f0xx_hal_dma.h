@@ -292,89 +292,170 @@ typedef struct __DMA_HandleTypeDef
   *           - YYYYYYYY  : Position in the SYSCFG register CFGR1
   * @{
   */
-#define DMA_REMAP_ADC_DMA_CH2                                                                \
-  ( (uint32_t)SYSCFG_CFGR1_ADC_DMA_RMP ) /*!< ADC DMA remap                                  \
-                                       0: No remap (ADC DMA requests mapped on DMA channel 1 \
+#define DMA_REMAP_ADC_DMA_CH2                                                                                  \
+  ( (uint32_t)SYSCFG_CFGR1_ADC_DMA_RMP ) /*!< ADC DMA remap                                  \ \ \ \ \ \ \ \ \ \
+                                       0: No remap (ADC DMA requests mapped on DMA channel 1 \ \ \ \ \ \ \ \ \ \
                                        1: Remap (ADC DMA requests mapped on DMA channel 2 */
-#define DMA_REMAP_USART1_TX_DMA_CH4                                                               \
-  ( (uint32_t)SYSCFG_CFGR1_USART1TX_DMA_RMP ) /*!< USART1 TX DMA remap                            \
-                                       0: No remap (USART1_TX DMA request mapped on DMA channel 2 \
+#define DMA_REMAP_USART1_TX_DMA_CH4                                                                                 \
+  ( (uint32_t)SYSCFG_CFGR1_USART1TX_DMA_RMP ) /*!< USART1 TX DMA remap                            \ \ \ \ \ \ \ \ \ \
+                                       0: No remap (USART1_TX DMA request mapped on DMA channel 2 \ \ \ \ \ \ \ \ \ \
                                        1: Remap (USART1_TX DMA request mapped on DMA channel 4 */
-#define DMA_REMAP_USART1_RX_DMA_CH5                                                               \
-  ( (uint32_t)SYSCFG_CFGR1_USART1RX_DMA_RMP ) /*!< USART1 RX DMA remap                            \
-                                       0: No remap (USART1_RX DMA request mapped on DMA channel 3 \
+#define DMA_REMAP_USART1_RX_DMA_CH5                                                                                 \
+  ( (uint32_t)SYSCFG_CFGR1_USART1RX_DMA_RMP ) /*!< USART1 RX DMA remap                            \ \ \ \ \ \ \ \ \ \
+                                       0: No remap (USART1_RX DMA request mapped on DMA channel 3 \ \ \ \ \ \ \ \ \ \
                                        1: Remap (USART1_RX DMA request mapped on DMA channel 5 */
-#define DMA_REMAP_TIM16_DMA_CH4                                                                                  \
-  ( (uint32_t)SYSCFG_CFGR1_TIM16_DMA_RMP ) /*!< TIM16 DMA request remap                                          \
-                                       0: No remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel 3) \
-                                       1: Remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel 4) */
-#define DMA_REMAP_TIM17_DMA_CH2                                                                                 \
-  ( (uint32_t)SYSCFG_CFGR1_TIM17_DMA_RMP ) /*!< TIM17 DMA request remap                                         \
-                                       0: No remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel 1 \
-                                       1: Remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel 2) */
+#define DMA_REMAP_TIM16_DMA_CH4                                                                                      \
+  ( (uint32_t)                                                                                                       \
+        SYSCFG_CFGR1_TIM16_DMA_RMP ) /*!< TIM16 DMA request remap                                          \ \ \ \ \ \
+                                 \ \ \ \                                                                         \ \ \
+                                 0: No remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel 3) \ \ \ \ \ \
+                                 \ \ \ \                                                                         \ \ \
+                                 1: Remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel 4) */
+#define DMA_REMAP_TIM17_DMA_CH2                                                                                     \
+  ( (uint32_t)                                                                                                      \
+        SYSCFG_CFGR1_TIM17_DMA_RMP ) /*!< TIM17 DMA request remap                                         \ \ \ \ \ \
+                                 \ \ \ \                                                                        \ \ \
+                                 0: No remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel 1 \ \ \ \ \ \
+                                 \ \ \ \                                                                        \ \ \
+                                 1: Remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel 2) */
 #if defined( STM32F070xB )
-#define DMA_REMAP_USART3_DMA_CH32                                                                                   \
-  ( (uint32_t)SYSCFG_CFGR1_USART3_DMA_RMP ) /*!< USART3 DMA request remapping bit. Available on STM32F070xB devices \
-                                       only.                                                                        \
-                                       0: Disabled, need to remap before use                                        \
-                                       1: Remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 3 and 2 \
+#define DMA_REMAP_USART3_DMA_CH32                                                                                     \
+  ( (uint32_t)SYSCFG_CFGR1_USART3_DMA_RMP ) /*!< USART3 DMA request remapping bit. Available on STM32F070xB devices \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       only.                                                                        \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       0: Disabled, need to remap before use                                        \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       1: Remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 3 and 2 \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
                                        respectively) */
 
 #endif
 
 #if defined( STM32F071xB ) || defined( STM32F072xB ) || defined( STM32F078xx )
-#define DMA_REMAP_TIM16_DMA_CH6                                                                                        \
-  ( (uint32_t)SYSCFG_CFGR1_TIM16_DMA_RMP2 ) /*!< TIM16 alternate DMA request remapping bit. Available on STM32F07x     \
-                                       devices only                                                                    \
-                                       0: No alternate remap (TIM16 DMA requestsmapped according to TIM16_DMA_RMP bit) \
-                                       1: Alternate remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel   \
-                                       6) */
-#define DMA_REMAP_TIM17_DMA_CH7                                                                                        \
-  ( (uint32_t)SYSCFG_CFGR1_TIM17_DMA_RMP2 ) /*!< TIM17 alternate DMA request remapping bit. Available on STM32F07x     \
-                                       devices only                                                                    \
-                                       0: No alternate remap (TIM17 DMA requestsmapped according to TIM17_DMA_RMP bit) \
-                                       1: Alternate remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel   \
-                                       7) */
-#define DMA_REMAP_SPI2_DMA_CH67                                                                                     \
-  ( (uint32_t)SYSCFG_CFGR1_SPI2_DMA_RMP ) /*!< SPI2 DMA request remapping bit. Available on STM32F07x devices only. \
-                                       0: No remap (SPI2_RX and SPI2_TX DMA requests mapped on DMA channel 4 and 5  \
-                                       respectively)                                                                \
-                                       1: Remap (SPI2_RX and SPI2_TX DMA requests mapped on DMA channel 6 and 7     \
+#define DMA_REMAP_TIM16_DMA_CH6                                                                                    \
+  ( (uint32_t)                                                                                                     \
+        SYSCFG_CFGR1_TIM16_DMA_RMP2 ) /*!< TIM16 alternate DMA request remapping bit. Available on STM32F07x     \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 devices only \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 0: No alternate remap (TIM16 DMA requestsmapped according to TIM16_DMA_RMP bit) \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 1: Alternate remap (TIM16_CH1 and TIM16_UP DMA requests mapped on DMA channel   \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 6) */
+#define DMA_REMAP_TIM17_DMA_CH7                                                                                    \
+  ( (uint32_t)                                                                                                     \
+        SYSCFG_CFGR1_TIM17_DMA_RMP2 ) /*!< TIM17 alternate DMA request remapping bit. Available on STM32F07x     \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 devices only \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 0: No alternate remap (TIM17 DMA requestsmapped according to TIM17_DMA_RMP bit) \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 1: Alternate remap (TIM17_CH1 and TIM17_UP DMA requests mapped on DMA channel   \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 7) */
+#define DMA_REMAP_SPI2_DMA_CH67                                                                                       \
+  ( (uint32_t)SYSCFG_CFGR1_SPI2_DMA_RMP ) /*!< SPI2 DMA request remapping bit. Available on STM32F07x devices only. \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       0: No remap (SPI2_RX and SPI2_TX DMA requests mapped on DMA channel 4 and 5  \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       respectively)                                                                \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       1: Remap (SPI2_RX and SPI2_TX DMA requests mapped on DMA channel 6 and 7     \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
                                        respectively) */
-#define DMA_REMAP_USART2_DMA_CH67                                                                                 \
-  ( (uint32_t)                                                                                                    \
-        SYSCFG_CFGR1_USART2_DMA_RMP ) /*!< USART2 DMA request remapping bit. Available on STM32F07x devices only. \
-                                 0: No remap (USART2_RX and USART2_TX DMA requests mapped on DMA channel 5 and 4  \
-                                 respectively)                                                                    \
-                                 1: 1: Remap (USART2_RX and USART2_TX DMA requests mapped on DMA channel 6 and 7  \
+#define DMA_REMAP_USART2_DMA_CH67                                                                                    \
+  ( (uint32_t)                                                                                                       \
+        SYSCFG_CFGR1_USART2_DMA_RMP ) /*!< USART2 DMA request remapping bit. Available on STM32F07x devices      \ \ \
+                                 \ \ \ \                                                                         \ \ \
+                                 only. \ \ \ \ \ \ \ \ \                                                                                                                   \
+                                 0: No remap (USART2_RX and USART2_TX DMA requests mapped on DMA channel 5 and 4 \ \ \
+                                 \ \ \ \                                                                         \ \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                   \
+                                 respectively) \ \ \ \ \ \ \ \ \                                                                                                                   \
+                                 1: 1: Remap (USART2_RX and USART2_TX DMA requests mapped on DMA channel 6 and 7 \ \ \
+                                 \ \ \ \                                                                         \ \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                   \
                                  respectively) */
-#define DMA_REMAP_USART3_DMA_CH32                                                                                      \
-  ( (uint32_t)SYSCFG_CFGR1_USART3_DMA_RMP ) /*!< USART3 DMA request remapping bit. Available on STM32F07x devices      \
-                                       only.                                                                           \
-                                       0: No remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 6 and 7 \
-                                       respectively)                                                                   \
-                                       1: Remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 3 and 2    \
-                                       respectively) */
-#define DMA_REMAP_I2C1_DMA_CH76                                                                                     \
-  ( (uint32_t)SYSCFG_CFGR1_I2C1_DMA_RMP ) /*!< I2C1 DMA request remapping bit. Available on STM32F07x devices only. \
-                                       0: No remap (I2C1_RX and I2C1_TX DMA requests mapped on DMA channel 3 and 2  \
-                                       respectively)                                                                \
-                                       1: Remap (I2C1_RX and I2C1_TX DMA requests mapped on DMA channel 7 and 6     \
+#define DMA_REMAP_USART3_DMA_CH32                                                                                  \
+  ( (uint32_t)                                                                                                     \
+        SYSCFG_CFGR1_USART3_DMA_RMP ) /*!< USART3 DMA request remapping bit. Available on STM32F07x devices      \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 only. \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 0: No remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 6 and 7 \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 respectively) \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 1: Remap (USART3_RX and USART3_TX DMA requests mapped on DMA channel 3 and 2    \ \
+                                 \ \ \ \                                                                         \ \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                 \
+                                 respectively) */
+#define DMA_REMAP_I2C1_DMA_CH76                                                                                       \
+  ( (uint32_t)SYSCFG_CFGR1_I2C1_DMA_RMP ) /*!< I2C1 DMA request remapping bit. Available on STM32F07x devices only. \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       0: No remap (I2C1_RX and I2C1_TX DMA requests mapped on DMA channel 3 and 2  \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       respectively)                                                                \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       1: Remap (I2C1_RX and I2C1_TX DMA requests mapped on DMA channel 7 and 6     \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
                                        respectively) */
 #define DMA_REMAP_TIM1_DMA_CH6                                                                                        \
   ( (uint32_t)                                                                                                        \
-        SYSCFG_CFGR1_TIM1_DMA_RMP ) /*!< TIM1 DMA request remapping bit. Available on STM32F07x devices only.         \
+        SYSCFG_CFGR1_TIM1_DMA_RMP ) /*!< TIM1 DMA request remapping bit. Available on STM32F07x devices only. \ \ \ \ \
+                                 \                                                                                    \
+                                 \ \                                                                                                                    \
+                                 \ \ \                                                                                                                    \
+                                 \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \                                                                                                                    \
                                  0: No remap (TIM1_CH1, TIM1_CH2 and TIM1_CH3 DMA requests mapped on DMA channel 2, 3 \
-                                 and 4 respectively)                                                                  \
+                                 \                                                                                    \
+                                 \ \                                                                                                                    \
+                                 \ \ \                                                                                                                    \
+                                 \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \ \ \ \                                                                                                                    \
+                                 \ \ \ \ \ \ \ \ \                                                                                                                    \
+                                 and 4 respectively) \ \ \ \ \ \ \ \ \                                                                                                                    \
                                  1: Remap (TIM1_CH1, TIM1_CH2 and TIM1_CH3 DMA requests mapped on DMA channel 6 */
-#define DMA_REMAP_TIM2_DMA_CH7                                                                                       \
-  ( (uint32_t)SYSCFG_CFGR1_TIM2_DMA_RMP ) /*!< TIM2 DMA request remapping bit. Available on STM32F07x devices only.  \
-                                       0: No remap (TIM2_CH2 and TIM2_CH4 DMA requests mapped on DMA channel 3 and 4 \
-                                       respectively)                                                                 \
+#define DMA_REMAP_TIM2_DMA_CH7                                                                                         \
+  ( (uint32_t)SYSCFG_CFGR1_TIM2_DMA_RMP ) /*!< TIM2 DMA request remapping bit. Available on STM32F07x devices only.  \ \
+                                       \ \ \ \                                                                         \
+                                       \ \ \ \ \ \ \ \                                                                                                               \
+                                       0: No remap (TIM2_CH2 and TIM2_CH4 DMA requests mapped on DMA channel 3 and 4 \ \
+                                       \ \ \ \                                                                         \
+                                       \ \ \ \ \ \ \ \                                                                                                               \
+                                       respectively)                                                                 \ \
+                                       \ \ \ \                                                                         \
+                                       \ \ \ \ \ \ \ \                                                                                                               \
                                        1: Remap (TIM2_CH2 and TIM2_CH4 DMA requests mapped on DMA channel 7 */
-#define DMA_REMAP_TIM3_DMA_CH6                                                                                      \
-  ( (uint32_t)SYSCFG_CFGR1_TIM3_DMA_RMP ) /*!< TIM3 DMA request remapping bit. Available on STM32F07x devices only. \
-                                       0: No remap (TIM3_CH1 and TIM3_TRIG DMA requests mapped on DMA channel 4)    \
+#define DMA_REMAP_TIM3_DMA_CH6                                                                                        \
+  ( (uint32_t)SYSCFG_CFGR1_TIM3_DMA_RMP ) /*!< TIM3 DMA request remapping bit. Available on STM32F07x devices only. \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
+                                       0: No remap (TIM3_CH1 and TIM3_TRIG DMA requests mapped on DMA channel 4)    \ \
+                                       \ \ \ \                                                                        \
+                                       \ \ \ \ \ \ \ \                                                                                                              \
                                        1: Remap (TIM3_CH1 and TIM3_TRIG DMA requests mapped on DMA channel 6) */
 #endif
 

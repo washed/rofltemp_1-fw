@@ -121,8 +121,8 @@ int main( void )
   while ( 1 )
   {
     handleMAX31865Devices();
-    // handleSevSeg ();
     checkMAX31865WDG();
+    HandleQueuedCommand();
 
     /* USER CODE END WHILE */
 

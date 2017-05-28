@@ -65,8 +65,8 @@ extern "C" {
 #define IS_OB_DATA_ADDRESS( ADDRESS ) \
   ( ( ( ADDRESS ) == OB_DATA_ADDRESS_DATA0 ) || ( ( ADDRESS ) == OB_DATA_ADDRESS_DATA1 ) )
 
-#define IS_OB_RDP_LEVEL( LEVEL )                                               \
-  ( ( ( LEVEL ) == OB_RDP_LEVEL_0 ) || ( ( LEVEL ) == OB_RDP_LEVEL_1 ) ) /*||\ \
+#define IS_OB_RDP_LEVEL( LEVEL )                                                                 \
+  ( ( ( LEVEL ) == OB_RDP_LEVEL_0 ) || ( ( LEVEL ) == OB_RDP_LEVEL_1 ) ) /*||\ \ \ \ \ \ \ \ \ \ \
                                              ((LEVEL) == OB_RDP_LEVEL_2))*/
 
 #define IS_OB_IWDG_SOURCE( SOURCE ) ( ( ( SOURCE ) == OB_IWDG_SW ) || ( ( SOURCE ) == OB_IWDG_HW ) )
@@ -164,7 +164,14 @@ typedef struct
     defined( STM32F051x8 ) || defined( STM32F042x6 ) || defined( STM32F048xx ) || defined( STM32F058xx ) || \
     defined( STM32F070x6 )
 #define FLASH_PAGE_SIZE 0x400U
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F058xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F058xx || \ \ \
+          \                                                                                                            \
+          \ \                                                                                                                     \
+          \ \ \                                                                                                                     \
+          \ \ \ \                                                                                                                     \
+          \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \ \                                                                                                                     \
           STM32F070x6 */
 
 #if defined( STM32F071xB ) || defined( STM32F072xB ) || defined( STM32F078xx ) || defined( STM32F070xB ) || \
@@ -240,7 +247,14 @@ typedef struct
     defined( STM32F051x8 ) || defined( STM32F042x6 ) || defined( STM32F048xx ) || defined( STM32F058xx ) || \
     defined( STM32F070x6 )
 #define OB_WRP_PAGES0TO31MASK ( 0x000000FFU )
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F038xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F038xx || \ \ \
+          \                                                                                                            \
+          \ \                                                                                                                     \
+          \ \ \                                                                                                                     \
+          \ \ \ \                                                                                                                     \
+          \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \ \                                                                                                                     \
           STM32F058xx || STM32F070x6 */
 
 #if defined( STM32F030x8 ) || defined( STM32F051x8 ) || defined( STM32F058xx )
@@ -255,7 +269,14 @@ typedef struct
 #if defined( STM32F030x8 ) || defined( STM32F051x8 ) || defined( STM32F058xx )
 #define OB_WRP_ALLPAGES ( 0x0000FFFFU ) /*!< Write protection of all pages */
 #endif                                  /* STM32F030x8 || STM32F051x8 || STM32F058xx */
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F038xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F051x8 || STM32F042x6 || STM32F048xx || STM32F038xx || \ \ \
+          \                                                                                                            \
+          \ \                                                                                                                     \
+          \ \ \                                                                                                                     \
+          \ \ \ \                                                                                                                     \
+          \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \                                                                                                                     \
+          \ \ \ \ \ \ \                                                                                                                     \
           STM32F058xx || STM32F070x6 */
 
 #if defined( STM32F071xB ) || defined( STM32F072xB ) || defined( STM32F078xx ) || defined( STM32F070xB ) || \
@@ -324,8 +345,8 @@ typedef struct
   */
 #define OB_RDP_LEVEL_0 ( (uint8_t)0xAAU )
 #define OB_RDP_LEVEL_1 ( (uint8_t)0xBBU )
-#define OB_RDP_LEVEL_2                                                   \
-  ( (uint8_t)0xCCU ) /*!< Warning: When enabling read protection level 2 \
+#define OB_RDP_LEVEL_2                                                                     \
+  ( (uint8_t)0xCCU ) /*!< Warning: When enabling read protection level 2 \ \ \ \ \ \ \ \ \ \
                        it's no more possible to go back to level 1 or 0 */
 /**
   * @}

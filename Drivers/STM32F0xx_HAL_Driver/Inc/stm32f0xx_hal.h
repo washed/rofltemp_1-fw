@@ -96,9 +96,11 @@ extern "C" {
 /** @defgroup HAL_Pin_remapping HAL Pin remapping
   * @{
   */
-#define HAL_REMAP_PA11_PA12                                                                            \
-  ( SYSCFG_CFGR1_PA11_PA12_RMP ) /*!< PA11 and PA12 remapping bit for small packages (28 and 20 pins). \
-                                  0: No remap (pin pair PA9/10 mapped on the pins)                     \
+#define HAL_REMAP_PA11_PA12                                                                                            \
+  ( SYSCFG_CFGR1_PA11_PA12_RMP ) /*!< PA11 and PA12 remapping bit for small packages (28 and 20 pins). \ \ \ \ \ \ \ \ \
+                                  \                                                                                    \
+                                  0: No remap (pin pair PA9/10 mapped on the pins)                     \ \ \ \ \ \ \ \ \
+                                  \                                                                                    \
                                   1: Remap (pin pair PA11/12 mapped instead of PA9/10) */
 
 /**
@@ -204,8 +206,9 @@ extern "C" {
                   SYSCFG_ITLINE2_SR_RTC_ALRA ) ) /*!< RTC Alarm -> exti[17] interrupt .... */
 #define HAL_ITLINE_FLASH_ITF \
   ( ( uint32_t )( ( HAL_SYSCFG_ITLINE3 << 0x18U ) | SYSCFG_ITLINE3_SR_FLASH_ITF ) ) /*!< Flash ITF Interrupt */
-#define HAL_ITLINE_CRS ( ( uint32_t )( ( HAL_SYSCFG_ITLINE4 << 0x18U ) | SYSCFG_ITLINE4_SR_CRS ) ) /*!< CRS Interrupt \
-                                                                                                      */
+#define HAL_ITLINE_CRS                                                                                             \
+  ( ( uint32_t )( ( HAL_SYSCFG_ITLINE4 << 0x18U ) | SYSCFG_ITLINE4_SR_CRS ) ) /*!< CRS Interrupt \ \ \ \ \ \ \ \ \ \
+                                                                                 */
 #define HAL_ITLINE_CLK_CTRL \
   ( ( uint32_t )( ( HAL_SYSCFG_ITLINE4 << 0x18U ) | SYSCFG_ITLINE4_SR_CLK_CTRL ) ) /*!< CLK Control Interrupt */
 #define HAL_ITLINE_EXTI0 \
@@ -302,9 +305,10 @@ extern "C" {
   ( ( uint32_t )( ( HAL_SYSCFG_ITLINE21 << 0x18U ) | SYSCFG_ITLINE21_SR_TIM16_GLB ) ) /*!< TIM16 Interrupt */
 #define HAL_ITLINE_TIM17 \
   ( ( uint32_t )( ( HAL_SYSCFG_ITLINE22 << 0x18U ) | SYSCFG_ITLINE22_SR_TIM17_GLB ) ) /*!< TIM17 Interrupt */
-#define HAL_ITLINE_I2C1                                                                                              \
-  ( ( uint32_t )( ( HAL_SYSCFG_ITLINE23 << 0x18U ) | SYSCFG_ITLINE23_SR_I2C1_GLB ) ) /*!< I2C1 Interrupt -> exti[23] \
-                                                                                        */
+#define HAL_ITLINE_I2C1                                                                             \
+  ( ( uint32_t )( ( HAL_SYSCFG_ITLINE23 << 0x18U ) |                                                \
+                  SYSCFG_ITLINE23_SR_I2C1_GLB ) ) /*!< I2C1 Interrupt -> exti[23] \ \ \ \ \ \ \ \ \ \
+                                                     */
 #define HAL_ITLINE_I2C2 \
   ( ( uint32_t )( ( HAL_SYSCFG_ITLINE24 << 0x18U ) | SYSCFG_ITLINE24_SR_I2C2_GLB ) ) /*!< I2C2 Interrupt */
 #define HAL_ITLINE_SPI1 \

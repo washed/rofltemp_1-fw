@@ -854,7 +854,13 @@ extern "C" {
 ( ( ( uint32_t )( ( __HANDLE__ )->Instance ) > (uint32_t)DMA1_Channel7 ) ? ( DMA2->IFCR = ( __FLAG__ ) ) \
                                                                          : ( DMA1->IFCR = ( __FLAG__ ) ) )
 
-#else /* STM32F030x8_STM32F030xC_STM32F031x6_STM32F038xx_STM32F051x8_STM32F058xx_STM32F070x6_STM32F070xB Product \
+#else /* STM32F030x8_STM32F030xC_STM32F031x6_STM32F038xx_STM32F051x8_STM32F058xx_STM32F070x6_STM32F070xB Product \ \ \ \
+         \                                                                                                             \
+         \ \                                                                                                                     \
+         \ \ \                                                                                                                     \
+         \ \ \ \                                                                                                                     \
+         \ \ \ \ \                                                                                                                     \
+         \ \ \ \ \ \                                                                                                                     \
          devices */
 /**
   * @brief  Returns the current DMA Channel transfer complete flag.

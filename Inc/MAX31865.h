@@ -23,7 +23,7 @@ extern "C" {
 
 #define MAX31865_CON_DEVICES 1
 #define MAX31865_USE_CALLENDAR_VAN_DUSEN 0  // TODO: This is still broken
-#define MAX31865_MAX_BUFFERSIZE 10
+#define MAX31865_MAX_BUFFERSIZE 5
 #if ( MAX31865_USE_CALLENDAR_VAN_DUSEN == 1 )
 #error "don't use this right now!"
 #endif
@@ -101,7 +101,7 @@ extern volatile uint32_t MAX31865_DEVICES_RTD_DATA[ MAX31865_MAX_DEVICES ];
 extern volatile uint8_t MAX31865_DEVICES_SAMPLE_READY[ MAX31865_MAX_DEVICES ];
 extern int32_t MAX31865_DEVICES_TEMP[ MAX31865_MAX_DEVICES ];
 extern volatile uint32_t MAX31865_DEVICES_TIME_SINCE_LAST_READ[ MAX31865_MAX_DEVICES ];
-extern uint32_t averaged_RTD_temp;
+extern int32_t averaged_RTD_temp;
 
 // const uint32_t MAX31865_DEVICES_CS_BANK_PIN[MAX31865_MAX_DEVICES][2];
 // const uint32_t MAX31865_DEVICES_DR_BANK_PIN[MAX31865_MAX_DEVICES][2];

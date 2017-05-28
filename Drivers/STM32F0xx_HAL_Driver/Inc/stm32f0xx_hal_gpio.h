@@ -126,13 +126,13 @@ typedef enum { GPIO_PIN_RESET = 0U, GPIO_PIN_SET } GPIO_PinState;
   *           - Z  : IO Direction mode (Input, Output, Alternate or Analog)
   * @{
   */
-#define GPIO_MODE_INPUT ( 0x00000000U )     /*!< Input Floating Mode                   */
-#define GPIO_MODE_OUTPUT_PP ( 0x00000001U ) /*!< Output Push Pull Mode                 */
-#define GPIO_MODE_OUTPUT_OD ( 0x00000011U ) /*!< Output Open Drain Mode                */
-#define GPIO_MODE_AF_PP ( 0x00000002U )     /*!< Alternate Function Push Pull Mode     */
-#define GPIO_MODE_AF_OD ( 0x00000012U )     /*!< Alternate Function Open Drain Mode    */
-#define GPIO_MODE_ANALOG ( 0x00000003U )    /*!< Analog Mode  */
-#define GPIO_MODE_IT_RISING ( 0x10110000U ) /*!< External Interrupt Mode with Rising edge trigger detection */
+#define GPIO_MODE_INPUT ( 0x00000000U )      /*!< Input Floating Mode                   */
+#define GPIO_MODE_OUTPUT_PP ( 0x00000001U )  /*!< Output Push Pull Mode                 */
+#define GPIO_MODE_OUTPUT_OD ( 0x00000011U )  /*!< Output Open Drain Mode                */
+#define GPIO_MODE_AF_PP ( 0x00000002U )      /*!< Alternate Function Push Pull Mode     */
+#define GPIO_MODE_AF_OD ( 0x00000012U )      /*!< Alternate Function Open Drain Mode    */
+#define GPIO_MODE_ANALOG ( 0x00000003U )     /*!< Analog Mode  */
+#define GPIO_MODE_IT_RISING ( 0x10110000U )  /*!< External Interrupt Mode with Rising edge trigger detection */
 #define GPIO_MODE_IT_FALLING ( 0x10210000U ) /*!< External Interrupt Mode with Falling edge trigger detection */
 #define GPIO_MODE_IT_RISING_FALLING \
   ( 0x10310000U ) /*!< External Interrupt Mode with Rising/Falling edge trigger detection  */

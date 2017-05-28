@@ -15,7 +15,7 @@ void HAL_TIM_PeriodElapsedCallback( TIM_HandleTypeDef* htim )
 {
   if ( htim == &htim2 )
   {
-    setSevSegValue( averaged_RTD_temp / ( TEMP_INT_FACTOR / 10 ) );
+    setSevSegValue( averaged_RTD_temp );
     handleSevSeg( 1 );
   }
 }

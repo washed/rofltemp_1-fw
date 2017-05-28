@@ -37,10 +37,14 @@ __IO uint32_t* AnodeDutyCycles[ 3 ];
 
 static const uint16_t CathodePins[ 8 ];
 
+uint8_t sevseg_brightness;
+
 void initSevSeg();
 void handleSevSeg( uint8_t set );
+
 void setSevSegDP( int32_t position );
-void setSevSegValue( uint16_t value );
+void setSevSegValue( int32_t value );
 void setBrightness( uint8_t brightness );
+uint8_t getBrightness();
 
 #endif /* SEVSEG_H_ */

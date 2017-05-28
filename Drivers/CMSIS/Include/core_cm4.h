@@ -1310,8 +1310,9 @@ typedef struct
 #define FPU_FPCCR_USER_Msk ( 1UL << FPU_FPCCR_USER_Pos ) /*!< FPCCR: privilege level bit Mask */
 
 #define FPU_FPCCR_LSPACT_Pos 0U /*!< FPCCR: Lazy state preservation active bit Position */
-#define FPU_FPCCR_LSPACT_Msk ( 1UL /*<< FPU_FPCCR_LSPACT_Pos*/ ) /*!< FPCCR: Lazy state preservation active bit Mask \
-                                                                    */
+#define FPU_FPCCR_LSPACT_Msk                                                                                \
+  ( 1UL /*<< FPU_FPCCR_LSPACT_Pos*/ ) /*!< FPCCR: Lazy state preservation active bit Mask \ \ \ \ \ \ \ \ \ \
+                                         */
 
 /* Floating-Point Context Address Register Definitions */
 #define FPU_FPCAR_ADDRESS_Pos 3U                                        /*!< FPCAR: ADDRESS bit Position */

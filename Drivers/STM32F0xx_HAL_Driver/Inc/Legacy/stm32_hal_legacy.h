@@ -136,8 +136,9 @@ extern "C" {
 #define COMP_EXTI_LINE_COMP5_EVENT COMP_EXTI_LINE_COMP5
 #define COMP_EXTI_LINE_COMP6_EVENT COMP_EXTI_LINE_COMP6
 #define COMP_EXTI_LINE_COMP7_EVENT COMP_EXTI_LINE_COMP7
-#define COMP_LPTIMCONNECTION_ENABLED COMP_LPTIMCONNECTION_IN1_ENABLED /*!< COMPX output is connected to LPTIM input 1 \
-                                                                         */
+#define COMP_LPTIMCONNECTION_ENABLED                                                                 \
+  COMP_LPTIMCONNECTION_IN1_ENABLED /*!< COMPX output is connected to LPTIM input 1 \ \ \ \ \ \ \ \ \ \
+                                      */
 #define COMP_OUTPUT_COMP6TIM2OCREFCLR COMP_OUTPUT_COMP6_TIM2OCREFCLR
 #if defined( STM32F373xC ) || defined( STM32F378xx )
 #define COMP_OUTPUT_TIM3IC1 COMP_OUTPUT_COMP1_TIM3IC1
@@ -935,9 +936,25 @@ extern "C" {
 #define ETH_MAC_TRANSMITFRAMECONTROLLER_IDLE 0x00000000U /* MAC transmit frame controller: Idle */
 #define ETH_MAC_TRANSMITFRAMECONTROLLER_WAITING                                                                       \
   0x00020000U /* MAC transmit frame controller: Waiting for Status of previous frame or IFG/backoff period to be over \
+               * \                                                                                                    \
+               * \ \                                                                                                                    \
+               * \ \ \                                                                                                                    \
+               * \ \ \ \                                                                                                                    \
+               * \ \ \ \ \                                                                                                                    \
+               * \ \ \ \ \ \                                                                                                                    \
+               * \ \ \ \ \ \ \                                                                                                                    \
+               * \ \ \ \ \ \ \ \                                                                                                                    \
+               * \ \ \ \ \ \ \ \ \                                                                                                                    \
                  */
-#define ETH_MAC_TRANSMITFRAMECONTROLLER_GENRATING_PCF                                                             \
-  0x00040000U /* MAC transmit frame controller: Generating and transmitting a Pause control frame (in full duplex \
+#define ETH_MAC_TRANSMITFRAMECONTROLLER_GENRATING_PCF                                                                 \
+  0x00040000U /* MAC transmit frame controller: Generating and transmitting a Pause control frame (in full duplex \ \ \
+                 \                                                                                                    \
+                 \ \                                                                                                                    \
+                 \ \ \                                                                                                                    \
+                 \ \ \ \                                                                                                                    \
+                 \ \ \ \ \                                                                                                                    \
+                 \ \ \ \ \ \                                                                                                                    \
+                 \ \ \ \ \ \ \                                                                                                                    \
                  mode) */
 #define ETH_MAC_TRANSMITFRAMECONTROLLER_TRANSFERRING \
   0x00060000U /* MAC transmit frame controller: Transferring input frame for transmission */

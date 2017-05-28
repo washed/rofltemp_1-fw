@@ -252,7 +252,7 @@ extern "C" {
 
 #define IS_RCC_PERIPHCLOCK( SELECTION ) \
   ( ( SELECTION ) <= ( RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_RTC ) )
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \ \ \ \ \ \ \ \ \ \
           STM32F030xC */
 
 #if defined( STM32F070x6 ) || defined( STM32F070xB )
@@ -401,7 +401,7 @@ typedef struct
                                     This parameter can be a value of @ref RCC_I2C1_Clock_Source */
 
 } RCC_PeriphCLKInitTypeDef;
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \ \ \ \ \ \ \ \ \ \
           STM32F030xC */
 
 #if defined( STM32F070x6 ) || defined( STM32F070xB )
@@ -625,7 +625,7 @@ typedef struct
 #define RCC_PERIPHCLK_I2C1 ( 0x00000020U )
 #define RCC_PERIPHCLK_RTC ( 0x00010000U )
 
-#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \
+#endif /* STM32F030x6 || STM32F030x8 || STM32F031x6 || STM32F038xx || \ \ \ \ \ \ \ \ \ \
           STM32F030xC */
 
 #if defined( STM32F070x6 ) || defined( STM32F070xB )
@@ -859,11 +859,22 @@ typedef struct
 /** @defgroup RCCEx_CRS_ReloadValueDefault RCCEx CRS Default Reload Value
   * @{
   */
-#define RCC_CRS_RELOADVALUE_DEFAULT                                                                                \
-  (                                                                                                                \
-      0x0000BB7FU ) /*!< The reset value of the RELOAD field corresponds                                           \
-                                   to a target frequency of 48 MHz and a synchronization signal frequency of 1 kHz \
-                       (SOF signal from USB). */
+#define RCC_CRS_RELOADVALUE_DEFAULT                                                                                    \
+  ( 0x0000BB7FU ) /*!< The reset value of the RELOAD field corresponds                                           \ \ \ \
+                     \                                                                                                 \
+                     \ \                                                                                                                     \
+                     \ \ \                                                                                                                     \
+                     \ \ \ \                                                                                                                     \
+                     \ \ \ \ \                                                                                                                     \
+                     \ \ \ \ \ \                                                                                                                     \
+                                 to a target frequency of 48 MHz and a synchronization signal frequency of 1 kHz \ \ \ \
+                     \                                                                                                 \
+                     \ \                                                                                                                     \
+                     \ \ \                                                                                                                     \
+                     \ \ \ \                                                                                                                     \
+                     \ \ \ \ \                                                                                                                     \
+                     \ \ \ \ \ \                                                                                                                     \
+                     (SOF signal from USB). */
 /**
   * @}
   */
@@ -880,9 +891,21 @@ typedef struct
   * @{
   */
 #define RCC_CRS_HSI48CALIBRATION_DEFAULT                                                                              \
-  ( 0x00000020U ) /*!< The default value is 32, which corresponds to the middle of the trimming interval.             \
+  ( 0x00000020U ) /*!< The default value is 32, which corresponds to the middle of the trimming interval. \ \ \ \ \ \ \
+                     \                                                                                                \
+                     \ \                                                                                                                    \
+                     \ \ \                                                                                                                    \
                                  The trimming step is around 67 kHz between two consecutive TRIM steps. A higher TRIM \
-                     value                                                                                            \
+                     \                                                                                                \
+                     \ \                                                                                                                    \
+                     \ \ \                                                                                                                    \
+                     \ \ \ \                                                                                                                    \
+                     \ \ \ \ \                                                                                                                    \
+                     \ \ \ \ \ \                                                                                                                    \
+                     \ \ \ \ \ \ \                                                                                                                    \
+                     \ \ \ \ \ \ \ \                                                                                                                    \
+                     \ \ \ \ \ \ \ \ \                                                                                                                    \
+                     value \ \ \ \ \ \ \ \ \                                                                                                                    \
                                  corresponds to a higher output frequency */
 /**
   * @}

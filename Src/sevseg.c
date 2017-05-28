@@ -82,7 +82,17 @@ void initSevSeg()
 
 void setBrightness( uint8_t brightness )
 {
-  htim2.Instance->CCR1 = floor( ( (float)brightness * (float)brightness ) / 65.025F );
+  if ( brightness == 0 )
+    htim2.Instance->CCR1 = 1;
+  else
+    htim2.Instance->CCR1 = floor( ( (float)brightness * (float)brightness ) / 65.025F );
+
+  sevseg_brightness = brightness;
+}
+
+uint8_t getBrightness()
+{
+  return sevseg_brightness;
 }
 
 void handleSevSeg( uint8_t set )
@@ -107,22 +117,49 @@ void setSevSegDP( int32_t position )
 void toggleSevSegDP( int32_t position )
 {
   static uint8_t toggle = 0;
+  static int32_t last_position;
+
   if ( toggle == 0 )
   {
+    last_position = sevSegDPPosition;
     sevSegDPPosition = -1;
     toggle = 1;
   }
   else
   {
-    sevSegDPPosition = position;
+    if ( position == -1 )
+      sevSegDPPosition = last_position;
+    else
+      sevSegDPPosition = position;
+
     toggle = 0;
   }
 }
 
-void setSevSegValue( uint16_t value )
+void setSevSegValue( int32_t value )
 {
-  if ( ( value >= 0 ) && ( value < 1000 ) )
+  if ( /*( value >= 0 ) && */ ( value < ( 1000 * TEMP_INT_FACTOR ) ) )
   {
+    if ( value < 0 ) value = -value;
+
+    if ( value >= ( 100 * TEMP_INT_FACTOR ) )
+    {
+      // 100°C - 999°C
+      setSevSegDP( 2 );
+      value = ( (float)value / (float)TEMP_INT_FACTOR );
+    }
+    else if ( value >= ( 10 * TEMP_INT_FACTOR ) )
+    {
+      // 10.0°C - 99.9°C
+      setSevSegDP( 1 );
+      value = ( (float)( value * 10 ) / (float)TEMP_INT_FACTOR );
+    }
+    else if ( value >= 0 )
+    {
+      setSevSegDP( 0 );
+      value = ( (float)( value * 100 ) / (float)TEMP_INT_FACTOR );
+    }
+
     if ( value >= 100 )
     {
       sevSegValue[ 0 ] = value / 100;
@@ -152,11 +189,10 @@ void setSevSegValue( uint16_t value )
 static void WriteSevSegDigitFast( uint8_t digit, int8_t number )
 {
   uint32_t dp = 0;
-  ;
 
   if ( sevSegDPPosition == -1 )
     dp = 0;
-  else if ( digit == sevSegDPPosition )
+  else if ( ( digit == sevSegDPPosition ) && ( number != -1 ) )
     dp = CathodePins[ SEVSEG_DP ];
 
   if ( ( number >= -1 ) && ( number < SEVSEG_SYMBOLS ) && ( digit >= 0 ) && ( digit < SEVSEG_DIGITS ) )

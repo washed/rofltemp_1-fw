@@ -5931,8 +5931,8 @@ typedef struct
 #define FLASH_KEY1 FLASH_KEY1_Msk                        /*!< Flash program erase key1 */
 #define FLASH_KEY2_Pos ( 0U )
 #define FLASH_KEY2_Msk ( 0xCDEF89ABU << FLASH_KEY2_Pos ) /*!< 0xCDEF89AB */
-#define FLASH_KEY2                                                     \
-  FLASH_KEY2_Msk /*!< Flash program erase key2: used with FLASH_PEKEY1 \
+#define FLASH_KEY2                                                                       \
+  FLASH_KEY2_Msk /*!< Flash program erase key2: used with FLASH_PEKEY1 \ \ \ \ \ \ \ \ \ \
                   to unlock the write access to the FPEC. */
 
 #define FLASH_OPTKEY1_Pos ( 0U )
@@ -5940,8 +5940,8 @@ typedef struct
 #define FLASH_OPTKEY1 FLASH_OPTKEY1_Msk                        /*!< Flash option key1 */
 #define FLASH_OPTKEY2_Pos ( 0U )
 #define FLASH_OPTKEY2_Msk ( 0xCDEF89ABU << FLASH_OPTKEY2_Pos ) /*!< 0xCDEF89AB */
-#define FLASH_OPTKEY2                                                  \
-  FLASH_OPTKEY2_Msk /*!< Flash option key2: used with FLASH_OPTKEY1 to \
+#define FLASH_OPTKEY2                                                                    \
+  FLASH_OPTKEY2_Msk /*!< Flash option key2: used with FLASH_OPTKEY1 to \ \ \ \ \ \ \ \ \ \
                      unlock the write access to the option byte block */
 
 /******************  Bit definition for FLASH_SR register  *******************/
@@ -8653,8 +8653,16 @@ typedef struct
 /*****************  Bit definition for SYSCFG_CFGR2 register  ****************/
 #define SYSCFG_CFGR2_LOCKUP_LOCK_Pos ( 0U )
 #define SYSCFG_CFGR2_LOCKUP_LOCK_Msk ( 0x1U << SYSCFG_CFGR2_LOCKUP_LOCK_Pos ) /*!< 0x00000001 */
-#define SYSCFG_CFGR2_LOCKUP_LOCK                                                                                    \
-  SYSCFG_CFGR2_LOCKUP_LOCK_Msk /*!< Enables and locks the LOCKUP (Hardfault) output of CortexM0 with Break Input of \
+#define SYSCFG_CFGR2_LOCKUP_LOCK                                                                                      \
+  SYSCFG_CFGR2_LOCKUP_LOCK_Msk /*!< Enables and locks the LOCKUP (Hardfault) output of CortexM0 with Break Input of \ \
+                                  \                                                                                   \
+                                  \ \                                                                                                                    \
+                                  \ \ \                                                                                                                    \
+                                  \ \ \ \                                                                                                                    \
+                                  \ \ \ \ \                                                                                                                    \
+                                  \ \ \ \ \ \                                                                                                                    \
+                                  \ \ \ \ \ \ \                                                                                                                    \
+                                  \ \ \ \ \ \ \ \                                                                                                                    \
                                   TIMER1 */
 #define SYSCFG_CFGR2_SRAM_PARITY_LOCK_Pos ( 1U )
 #define SYSCFG_CFGR2_SRAM_PARITY_LOCK_Msk ( 0x1U << SYSCFG_CFGR2_SRAM_PARITY_LOCK_Pos ) /*!< 0x00000002 */
@@ -8664,12 +8672,22 @@ typedef struct
 #define SYSCFG_CFGR2_PVD_LOCK_Msk ( 0x1U << SYSCFG_CFGR2_PVD_LOCK_Pos ) /*!< 0x00000004 */
 #define SYSCFG_CFGR2_PVD_LOCK                                                                                         \
   SYSCFG_CFGR2_PVD_LOCK_Msk /*!< Enables and locks the PVD connection with Timer1 Break Input and also the PVD_EN and \
+                               \                                                                                      \
+                               \ \                                                                                                                    \
+                               \ \ \                                                                                                                    \
+                               \ \ \ \                                                                                                                    \
+                               \ \ \ \ \                                                                                                                    \
+                               \ \ \ \ \ \                                                                                                                    \
+                               \ \ \ \ \ \ \                                                                                                                    \
+                               \ \ \ \ \ \ \ \                                                                                                                    \
+                               \ \ \ \ \ \ \ \ \                                                                                                                    \
                                PVDSEL[2:0] bits of the Power Control Interface */
 #define SYSCFG_CFGR2_SRAM_PEF_Pos ( 8U )
 #define SYSCFG_CFGR2_SRAM_PEF_Msk ( 0x1U << SYSCFG_CFGR2_SRAM_PEF_Pos ) /*!< 0x00000100 */
 #define SYSCFG_CFGR2_SRAM_PEF SYSCFG_CFGR2_SRAM_PEF_Msk                 /*!< SRAM Parity error flag */
-#define SYSCFG_CFGR2_SRAM_PE SYSCFG_CFGR2_SRAM_PEF /*!< SRAM Parity error flag (define maintained for legacy purpose) \
-                                                      */
+#define SYSCFG_CFGR2_SRAM_PE                                                                                 \
+  SYSCFG_CFGR2_SRAM_PEF /*!< SRAM Parity error flag (define maintained for legacy purpose) \ \ \ \ \ \ \ \ \ \
+                           */
 
 /*****************************************************************************/
 /*                                                                           */

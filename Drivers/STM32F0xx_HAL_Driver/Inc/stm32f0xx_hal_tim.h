@@ -446,11 +446,11 @@ typedef struct
 /** @defgroup TIM_Input_Capture_Selection TIM Input Capture Selection
   * @{
   */
-#define TIM_ICSELECTION_DIRECTTI                                     \
-  ( TIM_CCMR1_CC1S_0 ) /*!< TIM Input 1, 2, 3 or 4 is selected to be \
+#define TIM_ICSELECTION_DIRECTTI                                                       \
+  ( TIM_CCMR1_CC1S_0 ) /*!< TIM Input 1, 2, 3 or 4 is selected to be \ \ \ \ \ \ \ \ \ \
                                       connected to IC1, IC2, IC3 or IC4, respectively */
-#define TIM_ICSELECTION_INDIRECTTI                                                           \
-  ( TIM_CCMR1_CC1S_1 )                         /*!< TIM Input 1, 2, 3 or 4 is selected to be \
+#define TIM_ICSELECTION_INDIRECTTI                                                                             \
+  ( TIM_CCMR1_CC1S_1 )                         /*!< TIM Input 1, 2, 3 or 4 is selected to be \ \ \ \ \ \ \ \ \ \
                                                               connected to IC2, IC1, IC4 or IC3, respectively */
 #define TIM_ICSELECTION_TRC ( TIM_CCMR1_CC1S ) /*!< TIM Input 1, 2, 3 or 4 is selected to be connected to TRC */
 /**
@@ -738,8 +738,9 @@ typedef struct
   */
 #define TIM_TRIGGERPOLARITY_INVERTED TIM_ETRPOLARITY_INVERTED       /*!< Polarity for ETRx trigger sources */
 #define TIM_TRIGGERPOLARITY_NONINVERTED TIM_ETRPOLARITY_NONINVERTED /*!< Polarity for ETRx trigger sources */
-#define TIM_TRIGGERPOLARITY_RISING TIM_INPUTCHANNELPOLARITY_RISING  /*!< Polarity for TIxFPx or TI1_ED trigger sources \
-                                                                       */
+#define TIM_TRIGGERPOLARITY_RISING                                                                     \
+  TIM_INPUTCHANNELPOLARITY_RISING /*!< Polarity for TIxFPx or TI1_ED trigger sources \ \ \ \ \ \ \ \ \ \
+                                     */
 #define TIM_TRIGGERPOLARITY_FALLING \
   TIM_INPUTCHANNELPOLARITY_FALLING /*!< Polarity for TIxFPx or TI1_ED trigger sources */
 #define TIM_TRIGGERPOLARITY_BOTHEDGE \
